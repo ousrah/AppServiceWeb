@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
-
+using System.Data.SqlClient;
 namespace AppServiceWeb
 {
     /// <summary>
@@ -16,6 +16,35 @@ namespace AppServiceWeb
     // [System.Web.Script.Services.ScriptService]
     public class Stock : System.Web.Services.WebService
     {
+
+        [WebMethod]
+        public string GetPriceById(string id)
+        {
+            string price="Erreur";
+            SqlConnection cn = new SqlConnection(@"data source=.\sqlexpress;initial catalog= NorthWind;user id=sa;password=P@ssw0rd");
+            cn.Open();
+            SqlCommand cmd = new SqlCommand("select unitprice from Products where Productid= @id", cn);
+            cmd.Parameters.AddWithValue("@id", id);
+            try { 
+            var p = cmd.ExecuteScalar();
+                if (p != null)
+                    price = p.ToString();
+                else
+                    p = "id introuvable";
+           }
+            catch(Exception ex)
+            {
+
+            }
+            cmd = null;
+            cn.Close();
+            cn = null;
+
+
+
+            return price;
+        }
+
 
         [WebMethod]
         public string HelloWorld(string lang="en")
