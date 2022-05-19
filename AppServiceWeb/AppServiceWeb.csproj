@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="2018-pratique-tdi-jour-1.pdf" />
+    <Content Include="2019-p-tdi-j2.pdf" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
